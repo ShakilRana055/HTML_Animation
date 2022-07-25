@@ -1,0 +1,135 @@
+body{
+    -moz-user-select: none; 
+    -khtml-user-select: none; 
+    -webkit-user-select: none; 
+    -o-user-select: none; 
+}
+
+.content {
+        border: 1px solid #000;
+        width: 1100px;
+        height: 600px;
+        overflow: hidden;
+        position: relative;
+        background-repeat: no-repeat;
+        background-size: 1100px 600px;
+    }
+
+.sky 
+    {
+     position:relative;
+     overflow:hidden;
+     width:1100px;
+     height:155px;
+     }
+
+.water{
+	position:relative;
+    overflow:hidden;
+    width: 1100px;
+    height: 287px;
+    border:solid black 2px;
+    -moz-user-select: none; 
+    -khtml-user-select: none; 
+    -webkit-user-select: none; 
+    -o-user-select: none;
+}
+
+.cityscape{
+	width: 1100px;
+	height: 153px;
+	overflow: hidden;
+    position: relative;
+    background-image: url(Images/island.png);
+    background-repeat: no-repeat;
+    background-size: 1100px 183px;
+}
+
+.ground{
+    width: 300px;
+    height: 100px;
+    overflow: hidden;
+    position: absolute;
+    top: 510px;
+    border-right: 2px solid;
+    background-image: url(Images/ground.png);
+    background-repeat: repeat-x;
+}
+
+#canvasDiv{
+    position: absolute;
+    top: 285px;
+}
+
+#projectile{
+    position: absolute;
+    background-color: transparent;
+    border-style: none;
+    left: 396px;        /* 396px; 366px;   left: 686px; top: 406px;*/
+    top: 366px;
+    width:30px;
+    height:50px;
+    background-image: url(Images/hook.png);
+    background-size: 30px 50px;
+    background-repeat: no-repeat;
+    visibility: hidden;
+}
+
+#fish{
+    position: absolute;
+    left: 200px;
+    top: 130px;
+    height: 60px;
+    width: 115px;
+    border-style: none;
+    visibility: hidden;
+    }
+
+#fishzone{
+    position: absolute;
+    top: 380px;
+    left: 303px;
+    width: 790px;
+    height: 207px;
+    overflow: hidden;
+    border-style: none;
+    }
+
+#scoreboard{
+    position: relative;
+    left: 1105px;
+    top: -600px;
+    width: 160px;
+    height: 60px;
+    padding: 2px;
+    font-family: Impact, sans-serif;
+    font-size: 300%;
+    background-color: #FF6600;
+    color: #3A1D00
+}
+
+#pull{
+    position: relative;
+    left: 1105px;
+    top: -600px;
+    font-family: Impact, sans-serif;
+    font-size: 200%;
+    border-style: solid;
+    border-radius: 4px;
+    border-width: 4px;
+    border-color: #FF9900;
+    background-color: #FF9900;
+}
+
+#rodthread{
+    position: relative;
+    top: -290px;
+    left: 340px;
+    width: 500px;
+    height: 105px;
+    border-style: none;
+    color: red;
+    visibility: hidden;
+}
+
+.overlap{ pointer-events: none; border: 1px solid black; margin: -1px; }

@@ -1,0 +1,175 @@
+<head>
+<title>Fishing Game Test 01</title>
+<script type="text/javascript" src="environment-setup.js"></script>
+<script src="player.js"></script>
+<script src="jquery-1.9.1.min.js"></script>
+<script src="ui/jquery.ui.core.js"></script>
+<script src="ui/jquery.ui.widget.js"></script>
+<script src="ui/jquery.ui.mouse.js"></script>
+<script src="ui/jquery.ui.draggable.js"></script>
+<script src="jquery-collision.js"></script>
+<link rel="stylesheet" href="stagestyle.css">
+<link rel="stylesheet" href="jquery-ui.css">
+</head>
+<body onload="start()">
+<div class="content">
+  <div id="m1" class="sky"></div>
+  <div id = "m3" class="cityscape"></div>
+  <div id="m2" class="water"></div>
+  <div class="ground"></div>
+  <div id="fishzone">
+    <div id="fish">
+      <img src="Images/fish.gif">
+    </div>
+  </div>
+  <div id="canvasDiv"></div>
+  <div id="projectile" class="draggable ui-widget-content"></div>
+ </div>
+<canvas id="rodthread"></canvas>
+<div id="scoreboard"></div>
+<button id="pull" disabled="true">PULL!</button>
+	<script>
+    let CLICK_CONSTANT = 175;
+      let buildPlayer = new BuildPlayer();
+      buildPlayer.PrepareCanvas(document.getElementById("canvasDiv"), 600, 400);
+
+      async function Awaiter(clickValue){
+        for(let i = clickValue; i <= CLICK_CONSTANT; i += 3)
+          {
+            click = i;
+            buildPlayer.ReBuildPlayer(click);
+            await buildPlayer.Jump();
+          }
+      }
+
+      var c=document.getElementById("rodthread");
+      var ctx=c.getContext("2d");
+      ctx.beginPath();
+      ctx.moveTo(28,40);
+      ctx.lineTo(180,10);
+      ctx.lineTo(207,152);
+      ctx.lineWidth = 2;
+      ctx.strokeStyle = '#B89300';
+      ctx.stroke();
+      
+      
+    	//prepareCanvas(document.getElementById("canvasDiv"), 600, 400);
+      var fish = $("#fish");
+      var fishLeft = $("#fish").offset().left;
+      var fishTop = $("#fish").offset().top;
+      var hookLeft = $("#projectile").offset().left;
+      var hookTop = $("#projectile").offset().top;
+		  var score = 0;
+		  var click=30;
+      var sound = new Audio("sounds//dishoom.ogg");
+
+      $(document).keyup(function(e){
+        if(e.which === 39){
+          click = 30;
+          Awaiter (click);
+        }
+        else if(e.which == 37){
+          click = 30;
+          buildPlayer.ReBuildPlayer(click);;
+          buildPlayer.Jump();
+        }
+        else{
+          click = CLICK_CONSTANT;
+        }
+      });
+
+
+		document.getElementById("canvasDiv").onmousedown = function() {
+			//throwdraw(click);
+			if (click >= CLICK_CONSTANT) {
+			throwrod();
+      $("#pull").prop("disabled", false);
+      //$("#scoreboard").html(fishLeft);
+			}	
+		}
+
+$("#pull").mousedown(function () {
+  $("#pull").css('background-color', '#FF0000');
+  $("#pull").css('border-color', '#FF0000');
+  fish.css('border-width', '50px');
+  fish.css('border-height', '80px');
+  fish.css('border-radius', '25px');
+  fish.css('border', '3px solid #FF0000');
+})
+
+$("#pull").mouseup(function () {
+  $("#pull").css('background-color', '#FF9900');
+  $("#pull").css('border-color', '#FF9900');
+  fish.css('border-style', 'none');
+})
+
+$("#pull").click(function () {
+  if (fishLeft <= 686 && fishTop >= 406) {
+    fish.stop().animate({
+            left: "+=10px",
+            top: "-=10px"
+        }, 300, function () {
+            showOverlap();
+        });
+  } else {
+    fish.stop().animate({
+            left: "-=10px",
+            top: "-=10px"
+        }, 300, function () {
+            showOverlap();
+        });
+  }
+  
+})
+
+function showOverlap(event,ui)
+      {
+        $(".overlap").remove();
+        var breakable = $("#projectile").collision( "#fish" ); // no "as", so we get the things we collided with instead of new div's
+        //breakable.remove();
+        if (breakable.length != 0) {
+          //score += 1;
+          breakable.remove();
+          $("#scoreboard").html("Caught!");
+          sound.play();
+        } else {
+          goRandom('fish');
+        }
+      }
+
+/*function testCollision(position1, size1, position2, size2) 
+    {
+        var score = 0;
+
+        if (((position1.left + size1.width)  > position2.left) &&
+            ((position1.top  + size1.height) > position2.top)  &&
+            ((position2.left + size2.width)  > position1.left) &&
+            ((position2.top  + size2.height) > position1.top)) 
+            {
+              score++;
+              $("#scoreboard").html(score);
+              goRandom('fish');
+            } else {
+              goRandom('fish');
+            }
+    }
+
+$( "#fish" ).droppable({
+      drop: function( event, ui ) {
+        var score = 0;
+        score++;
+        $("#scoreboard").html( score );
+      }
+    });
+
+      $(function() {
+            $( ".draggable" ).each(function(){$(this).draggable({ containment: "#content" });});
+            $( ".draggable" ).each(function(){$(this).bind("dragstart",showOverlap);})
+            $( ".draggable" ).each(function(){$(this).bind("dragstop", showOverlap);})
+            $( ".draggable" ).each(function(){$(this).bind("drag",     showOverlap);})
+      });
+      $(function() {
+            $( "#projectile" ).draggable({ containment: $("#fishzone") });
+      });*/
+		</script>
+</body>

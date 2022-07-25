@@ -1,0 +1,88 @@
+<head>
+<title>Snake Game</title>
+<script src="jquery-1.9.1.min.js"></script>
+<script src="ui/jquery.ui.core.js"></script>
+<script src="ui/jquery.ui.widget.js"></script>
+<script src="ui/jquery.ui.mouse.js"></script>
+<script src="ui/jquery.ui.draggable.js"></script>
+<script src="jquery-collision.js"></script>
+<link rel="stylesheet" href="snake.css">
+<link rel="stylesheet" href="jquery-ui.css">
+</head>
+<body>
+
+    <div class="center">
+        <div id="grid">
+            <!-- <div class="head"></div>
+            <div class="head"></div>
+            <div class="head"></div> -->
+            <!-- <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>  
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>     -->
+        </div>
+    </div>
+</body>
+
+<script>
+    let board = 9;
+    let snakeBoard = new Array();
+    let snakeHead = {
+        x : 4,
+        y: 2
+    };
+    let snakePosition = new Array();
+    class Snake {
+        constructor(){
+           
+        }
+        CreateBoard(divId){
+            divId.cellList = new Array();
+            for (let i = 0; i < board; i++) {
+                divId.cellList[i] = [];
+                for (let j = 0; j < board; j++) {
+                    let cellCreator = document.createElement('div');
+                    cellCreator.classList.add('cell');
+                    if(i == 4 && j < 3){
+                        cellCreator.style.background = 'green';
+                        snakePosition = [...snakePosition, {i, j}];
+                        if( i == 4 && j == 2)
+                        {
+                            let snakeImage = document.createElement('img');
+                            snakeImage.src = "snake.jpg";
+                            snakeImage.style.height = '20px';
+                            snakeImage.style.width = '20px';
+                            cellCreator.appendChild(snakeImage);
+                        }
+                    }
+                    divId.cellList[i][j] = cellCreator;
+                    divId.appendChild(divId.cellList[i][j]);
+                }
+                
+            }
+            snakeBoard.push(divId);
+            this.Movement();
+        }
+
+        Movement(){
+            console.log('here');
+            let cellList = snakeBoard[0].cellList;
+            for (let i = 0; i < cellList.length; i++) {
+                for (let j = 0; j < cellList[i].length; j++) {
+                    let div = cellList[i][j];
+                    const {x, y} = snakeHead;
+                }
+            }
+        }
+    }
+    let snake = new Snake();
+    window.onload = function (){
+        snake.CreateBoard(document.getElementById('grid'));
+    }
+    
+</script>
